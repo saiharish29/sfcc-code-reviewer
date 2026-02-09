@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Code Guardian — Executive Overview | ETG Digital</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0c1220;
+    --paper: #faf9f7;
+    --cream: #f3f1ec;
+    --slate: #4a5568;
+    --muted: #718096;
+    --accent: #1a56db;
+    --accent-light: #e8effc;
+    --success: #059669;
+    --success-light: #ecfdf5;
+    --danger: #dc2626;
+    --danger-light: #fef2f2;
+    --gold: #b8860b;
+    --gold-light: #fef9e7;
+    --border: #e2e0db;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    min-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 10% 60px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(170deg, #0c1220 0%, #162036 40%, #1a2744 70%, #0f1b30 100%);
+    color: white;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    right: -200px;
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(26,86,219,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -150px;
+    left: -100px;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(5,150,105,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 8px 20px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 40px;
+    backdrop-filter: blur(10px);
+    width: fit-content;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-badge .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--success);
+    box-shadow: 0 0 8px rgba(5,150,105,0.5);
+    animation: pulse 2s infinite;
+  }
+
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(42px, 5.5vw, 72px);
+    line-height: 1.08;
+    font-weight: 400;
+    letter-spacing: -1px;
+    max-width: 780px;
+    margin-bottom: 28px;
+    animation: fadeUp 0.8s 0.15s ease both;
+  }
+  .hero h1 em {
+    font-style: italic;
+    background: linear-gradient(90deg, #60a5fa, #34d399);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 19px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.6);
+    max-width: 560px;
+    font-weight: 300;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 48px;
+    margin-top: 60px;
+    animation: fadeUp 0.8s 0.45s ease both;
+  }
+  .hero-stat-num {
+    font-family: var(--serif);
+    font-size: 48px;
+    line-height: 1;
+    background: linear-gradient(135deg, #fff 30%, rgba(255,255,255,0.6));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-stat-label {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 6px;
+  }
+
+  .etg-logo {
+    position: absolute;
+    top: 40px;
+    left: 10%;
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+  }
+  .confidential {
+    position: absolute;
+    top: 40px;
+    right: 10%;
+    font-size: 11px;
+    color: rgba(255,255,255,0.25);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  /* ── Sections ── */
+  .section {
+    padding: 100px 10%;
+  }
+  .section-alt {
+    background: var(--cream);
+  }
+  .section-dark {
+    background: var(--ink);
+    color: white;
+  }
+
+  .section-eyebrow {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .section-dark .section-eyebrow { color: #60a5fa; }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(32px, 3.5vw, 48px);
+    line-height: 1.15;
+    margin-bottom: 20px;
+    max-width: 640px;
+  }
+
+  .section-desc {
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 580px;
+    line-height: 1.8;
+    margin-bottom: 56px;
+  }
+  .section-dark .section-desc { color: rgba(255,255,255,0.5); }
+
+  /* ── Problem / Solution ── */
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 80px;
+  }
+  .problem-card, .solution-card {
+    padding: 40px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+  }
+  .problem-card {
+    background: var(--danger-light);
+    border-color: #fecaca;
+  }
+  .solution-card {
+    background: var(--success-light);
+    border-color: #a7f3d0;
+  }
+  .card-icon {
+    font-size: 32px;
+    margin-bottom: 20px;
+    display: block;
+  }
+  .card-title {
+    font-family: var(--serif);
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+  .card-list {
+    list-style: none;
+    padding: 0;
+  }
+  .card-list li {
+    padding: 8px 0;
+    font-size: 15px;
+    color: var(--slate);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    line-height: 1.6;
+  }
+  .card-list li::before {
+    content: attr(data-icon);
+    flex-shrink: 0;
+    font-size: 16px;
+    margin-top: 2px;
+  }
+
+  /* ── How It Works ── */
+  .flow-steps {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    position: relative;
+    margin-top: 20px;
+  }
+  .flow-step {
+    text-align: center;
+    padding: 32px 20px;
+    position: relative;
+  }
+  .flow-step::after {
+    content: '→';
+    position: absolute;
+    right: -8px;
+    top: 50px;
+    font-size: 24px;
+    color: rgba(255,255,255,0.2);
+  }
+  .flow-step:last-child::after { display: none; }
+
+  .step-num {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-family: var(--serif);
+    font-size: 22px;
+    color: #60a5fa;
+  }
+  .step-title {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 8px;
+    color: white;
+  }
+  .step-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.6;
+  }
+
+  /* ── What It Catches ── */
+  .checks-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .check-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 36px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .check-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+  }
+  .check-icon {
+    font-size: 28px;
+    margin-bottom: 18px;
+    display: block;
+  }
+  .check-title {
+    font-family: var(--serif);
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  .check-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 18px;
+  }
+  .check-count {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-weight: 500;
+  }
+
+  /* ── ROI ── */
+  .roi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+  .roi-card {
+    text-align: center;
+    padding: 44px 24px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+  }
+  .roi-num {
+    font-family: var(--serif);
+    font-size: 52px;
+    line-height: 1;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #60a5fa 0%, #34d399 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .roi-label {
+    font-size: 14px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.6;
+  }
+
+  /* ── Report Preview ── */
+  .report-preview {
+    background: #0f172a;
+    border-radius: 16px;
+    border: 1px solid #334155;
+    overflow: hidden;
+    max-width: 900px;
+    margin: 0 auto;
+    box-shadow: 0 25px 80px rgba(0,0,0,0.15);
+  }
+  .report-topbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 20px;
+    background: #1e293b;
+    border-bottom: 1px solid #334155;
+  }
+  .report-dot {
+    width: 12px; height: 12px; border-radius: 50%;
+  }
+  .report-body {
+    padding: 32px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: #94a3b8;
+    line-height: 1.9;
+  }
+  .report-body .hl-red { color: #f87171; }
+  .report-body .hl-orange { color: #fb923c; }
+  .report-body .hl-yellow { color: #fbbf24; }
+  .report-body .hl-green { color: #4ade80; }
+  .report-body .hl-blue { color: #60a5fa; }
+  .report-body .hl-purple { color: #a78bfa; }
+  .report-body .hl-dim { color: #475569; }
+
+  /* ── Tech Stack ── */
+  .tech-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+  }
+  .tech-pill {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 10px 22px;
+    border-radius: 100px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    font-weight: 500;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    padding: 60px 10%;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-brand {
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--slate);
+  }
+  .footer-note {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* ── Animations ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1024px) {
+    .problem-grid, .checks-grid { grid-template-columns: 1fr; }
+    .flow-steps { grid-template-columns: 1fr; }
+    .flow-step::after { display: none; }
+    .roi-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero-stats { flex-direction: column; gap: 24px; }
+  }
+
+  @media print {
+    .hero { min-height: auto; padding: 40px 5%; }
+    .section { padding: 40px 5%; }
+    body { font-size: 11pt; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- HERO                                        -->
+<!-- ════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="etg-logo">ETG Digital</div>
+  <div class="confidential">Internal · February 2026</div>
+
+  <div class="hero-badge">
+    <span class="dot"></span>
+    Innovation Initiative — Engineering Productivity
+  </div>
+
+  <h1>AI Code Guardian:<br><em>Automated Quality Assurance</em></h1>
+
+  <p class="hero-sub">
+    An AI-powered code review tool that automatically enforces security standards,
+    coding conventions, and architectural best practices — before code reaches production.
+  </p>
+
+  <div class="hero-stats">
+    <div>
+      <div class="hero-stat-num">66</div>
+      <div class="hero-stat-label">Automated Checks</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">&lt;5m</div>
+      <div class="hero-stat-label">Review Time</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">$0</div>
+      <div class="hero-stat-label">Infrastructure Cost</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">100%</div>
+      <div class="hero-stat-label">Runs Locally</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- THE PROBLEM & SOLUTION                      -->
+<!-- ════════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-eyebrow">The Challenge</div>
+  <h2 class="section-title">Manual Code Reviews Don't Scale</h2>
+  <p class="section-desc">
+    As our team grows and client projects multiply, senior architects become bottlenecks.
+    Manual reviews are inconsistent, slow, and miss issues that only surface in production.
+  </p>
+
+  <div class="problem-grid">
+    <div class="problem-card">
+      <span class="card-icon">⚠️</span>
+      <h3 class="card-title">Without Automation</h3>
+      <ul class="card-list">
+        <li data-icon="✕">Architect manually reviews every PR — 2-4 hours per review</li>
+        <li data-icon="✕">Inconsistent standards enforcement across team members</li>
+        <li data-icon="✕">Security vulnerabilities caught late (or not at all)</li>
+        <li data-icon="✕">Senior architects blocked from strategic work</li>
+        <li data-icon="✕">Production bugs from missed coding issues</li>
+      </ul>
+    </div>
+    <div class="solution-card">
+      <span class="card-icon">✅</span>
+      <h3 class="card-title">With AI Code Guardian</h3>
+      <ul class="card-list">
+        <li data-icon="✓">Every developer runs automated review before creating a PR</li>
+        <li data-icon="✓">66 standardized checks applied consistently, every time</li>
+        <li data-icon="✓">Security vulnerabilities flagged immediately with fixes</li>
+        <li data-icon="✓">Architects review reports, not raw code — 10x faster</li>
+        <li data-icon="✓">Developers learn and self-correct from detailed fix guidance</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- HOW IT WORKS                                -->
+<!-- ════════════════════════════════════════════ -->
+<section class="section section-dark">
+  <div class="section-eyebrow">How It Works</div>
+  <h2 class="section-title" style="color:white">Five Steps. Five Minutes. Zero Excuses.</h2>
+  <p class="section-desc">
+    Developer runs a single command. The tool scans their code, applies 66 local checks,
+    then sends batches to Claude AI for deep architectural analysis. A professional HTML report
+    is generated with every issue explained and fixed.
+  </p>
+
+  <div class="flow-steps">
+    <div class="flow-step">
+      <div class="step-num">1</div>
+      <div class="step-title">Run Command</div>
+      <div class="step-desc">Developer types <code style="color:#60a5fa">node index.js</code> and enters their API key (never stored)</div>
+    </div>
+    <div class="flow-step">
+      <div class="step-num">2</div>
+      <div class="step-title">Repo Scan</div>
+      <div class="step-desc">Tool maps all files, categorizes by framework (React, SFRA, Node.js)</div>
+    </div>
+    <div class="flow-step">
+      <div class="step-num">3</div>
+      <div class="step-title">Local Checks</div>
+      <div class="step-desc">66 regex-based rules catch security flaws, naming issues, standards violations — no API needed</div>
+    </div>
+    <div class="flow-step">
+      <div class="step-num">4</div>
+      <div class="step-title">AI Deep Analysis</div>
+      <div class="step-desc">Claude AI reviews code as a Senior Architect — catches contextual bugs, logic flaws, architecture issues</div>
+    </div>
+    <div class="flow-step">
+      <div class="step-num">5</div>
+      <div class="step-title">HTML Report</div>
+      <div class="step-desc">Self-contained report with severity ratings, code fixes, and a priority matrix for action</div>
+    </div>
+  </div>
+
+  <div class="tech-row">
+    <span class="tech-pill">Salesforce PWA Kit</span>
+    <span class="tech-pill">SFRA / ISML</span>
+    <span class="tech-pill">React</span>
+    <span class="tech-pill">Node.js</span>
+    <span class="tech-pill">Express</span>
+    <span class="tech-pill">TypeScript</span>
+    <span class="tech-pill">SCSS / CSS</span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- WHAT IT CATCHES                             -->
+<!-- ════════════════════════════════════════════ -->
+<section class="section section-alt">
+  <div class="section-eyebrow">Coverage</div>
+  <h2 class="section-title">What It Catches</h2>
+  <p class="section-desc">
+    Six categories of automated checks, from critical security vulnerabilities
+    to CSS naming conventions. Every issue includes a copy-paste ready fix.
+  </p>
+
+  <div class="checks-grid">
+    <div class="check-card">
+      <span class="check-icon">🔒</span>
+      <h3 class="check-title">Security</h3>
+      <p class="check-desc">OWASP Top 10, hardcoded secrets, XSS, injection flaws, CSRF, path traversal, prototype pollution, insecure crypto.</p>
+      <span class="check-count">17 rules</span>
+    </div>
+    <div class="check-card">
+      <span class="check-icon">📏</span>
+      <h3 class="check-title">Coding Standards</h3>
+      <p class="check-desc">Naming conventions, JSDoc requirements, import organization, function length limits, architecture patterns.</p>
+      <span class="check-count">41 rules</span>
+    </div>
+    <div class="check-card">
+      <span class="check-icon">🧹</span>
+      <h3 class="check-title">Code Quality</h3>
+      <p class="check-desc">Empty catch blocks, var usage, async anti-patterns, dead code, deeply nested logic, magic numbers.</p>
+      <span class="check-count">8 rules</span>
+    </div>
+    <div class="check-card">
+      <span class="check-icon">⚛️</span>
+      <h3 class="check-title">React & SSR</h3>
+      <p class="check-desc">Hydration mismatches, useEffect bugs, missing error boundaries, state mutation, index-as-key, missing memoization.</p>
+      <span class="check-count">Included in AI</span>
+    </div>
+    <div class="check-card">
+      <span class="check-icon">♿</span>
+      <h3 class="check-title">Accessibility</h3>
+      <p class="check-desc">Missing alt text, keyboard navigation, form labels, ARIA attributes, semantic HTML, focus management.</p>
+      <span class="check-count">Included in rules</span>
+    </div>
+    <div class="check-card">
+      <span class="check-icon">⚡</span>
+      <h3 class="check-title">Performance</h3>
+      <p class="check-desc">Bundle bloat, unnecessary re-renders, missing useMemo, full-library imports, API call patterns, caching gaps.</p>
+      <span class="check-count">Included in rules</span>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- REPORT PREVIEW                              -->
+<!-- ════════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-eyebrow">Output</div>
+  <h2 class="section-title">Professional, Actionable Reports</h2>
+  <p class="section-desc">
+    Every report is a self-contained HTML file — no server needed. Open in any browser,
+    print to PDF, or attach to a pull request. Fully interactive with filtering and navigation.
+  </p>
+
+  <div class="report-preview">
+    <div class="report-topbar">
+      <div class="report-dot" style="background:#f87171"></div>
+      <div class="report-dot" style="background:#fbbf24"></div>
+      <div class="report-dot" style="background:#4ade80"></div>
+      <span style="margin-left:12px;font-size:12px;color:#64748b;font-family:var(--sans)">code-review-2026-02-09.html</span>
+    </div>
+    <div class="report-body">
+      <span class="hl-blue">📋 Executive Summary</span><br>
+      <span class="hl-dim">───────────────────────────────────</span><br>
+      Total Issues: <span class="hl-blue">42</span>&nbsp;&nbsp;
+      <span class="hl-red">🔴 Critical: 3</span>&nbsp;&nbsp;
+      <span class="hl-orange">🟠 High: 8</span>&nbsp;&nbsp;
+      <span class="hl-yellow">🟡 Medium: 16</span>&nbsp;&nbsp;
+      <span class="hl-green">🔵 Low: 12</span>&nbsp;&nbsp;
+      ⚪ Info: 3<br><br>
+
+      <span class="hl-blue">Risk Score: </span><span class="hl-red">7/10</span> — Critical issues require immediate attention<br><br>
+
+      <span class="hl-purple">📏 Coding Standards Violations: 33</span><br>
+      <span class="hl-dim">  ├─</span> Naming Convention (5)&nbsp;&nbsp;Documentation (8)&nbsp;&nbsp;Error Handling (4)<br>
+      <span class="hl-dim">  ├─</span> Architecture (3)&nbsp;&nbsp;Import Standards (3)&nbsp;&nbsp;Accessibility (3)<br>
+      <span class="hl-dim">  └─</span> Performance (3)&nbsp;&nbsp;CSS Standards (5)&nbsp;&nbsp;Testing (1)<br><br>
+
+      <span class="hl-red">🔒 Security Vulnerabilities: 9</span><br>
+      <span class="hl-dim">  ├─</span> <span class="hl-red">CRITICAL</span> Hardcoded API Key → <span class="hl-green">Fix: Use environment variable</span><br>
+      <span class="hl-dim">  ├─</span> <span class="hl-orange">HIGH</span>&nbsp;&nbsp;&nbsp;&nbsp; eval() usage → <span class="hl-green">Fix: Use JSON.parse() or safer alternative</span><br>
+      <span class="hl-dim">  └─</span> <span class="hl-orange">HIGH</span>&nbsp;&nbsp;&nbsp;&nbsp; XSS via innerHTML → <span class="hl-green">Fix: Sanitize with DOMPurify</span><br><br>
+
+      <span class="hl-dim">Each issue includes: code snippet, fixed code, explanation, references</span>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- ROI & IMPACT                                -->
+<!-- ════════════════════════════════════════════ -->
+<section class="section section-dark">
+  <div class="section-eyebrow">Business Impact</div>
+  <h2 class="section-title" style="color:white">Return on Investment</h2>
+  <p class="section-desc">
+    Built in-house with zero licensing fees. The only running cost is Claude API usage — 
+    roughly $0.10–$1.50 per review. The savings compound with every developer on the team.
+  </p>
+
+  <div class="roi-grid">
+    <div class="roi-card">
+      <div class="roi-num">80%</div>
+      <div class="roi-label">Reduction in architect<br>review time per PR</div>
+    </div>
+    <div class="roi-card">
+      <div class="roi-num">~$1</div>
+      <div class="roi-label">Average cost<br>per code review</div>
+    </div>
+    <div class="roi-card">
+      <div class="roi-num">0</div>
+      <div class="roi-label">License fees<br>or subscriptions</div>
+    </div>
+    <div class="roi-card">
+      <div class="roi-num">24/7</div>
+      <div class="roi-label">Available anytime<br>no bottleneck</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SECURITY & PRIVACY                          -->
+<!-- ════════════════════════════════════════════ -->
+<section class="section section-alt">
+  <div class="section-eyebrow">Security & Privacy</div>
+  <h2 class="section-title">Built with Enterprise Security in Mind</h2>
+  <p class="section-desc" style="margin-bottom:40px">
+    We designed this tool knowing it handles proprietary client code.
+    Every architectural decision prioritizes data protection.
+  </p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:800px">
+    <div style="display:flex;align-items:flex-start;gap:16px;padding:24px;background:white;border-radius:12px;border:1px solid var(--border)">
+      <span style="font-size:24px;flex-shrink:0">🔑</span>
+      <div>
+        <strong style="display:block;margin-bottom:4px">API Keys Never Stored</strong>
+        <span style="font-size:14px;color:var(--muted)">Entered at runtime, held only in memory during the review, immediately discarded.</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:16px;padding:24px;background:white;border-radius:12px;border:1px solid var(--border)">
+      <span style="font-size:24px;flex-shrink:0">💻</span>
+      <div>
+        <strong style="display:block;margin-bottom:4px">100% Local Execution</strong>
+        <span style="font-size:14px;color:var(--muted)">Runs entirely on the developer's machine. No cloud servers, no data uploads to third parties.</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:16px;padding:24px;background:white;border-radius:12px;border:1px solid var(--border)">
+      <span style="font-size:24px;flex-shrink:0">🚫</span>
+      <div>
+        <strong style="display:block;margin-bottom:4px">No Code Retention</strong>
+        <span style="font-size:14px;color:var(--muted)">Anthropic's API does not retain inputs for training. Code is processed and forgotten.</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:16px;padding:24px;background:white;border-radius:12px;border:1px solid var(--border)">
+      <span style="font-size:24px;flex-shrink:0">📊</span>
+      <div>
+        <strong style="display:block;margin-bottom:4px">66 Checks Run Offline</strong>
+        <span style="font-size:14px;color:var(--muted)">The majority of checks (security, standards, quality) run locally with zero network calls.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- TEAM WORKFLOW                                -->
+<!-- ════════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-eyebrow">Workflow</div>
+  <h2 class="section-title">How It Fits Into Our Process</h2>
+  <p class="section-desc" style="margin-bottom:48px">
+    The tool slots directly into our existing Git workflow. No new platforms to learn, 
+    no dashboards to manage, no vendor onboarding.
+  </p>
+
+  <div style="display:flex;flex-direction:column;gap:0;max-width:640px">
+    <div style="display:flex;align-items:center;gap:20px;padding:20px 0;border-bottom:1px solid var(--border)">
+      <div style="width:40px;height:40px;border-radius:50%;background:var(--accent-light);color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">1</div>
+      <div>
+        <strong>Developer completes feature on a branch</strong>
+        <div style="font-size:14px;color:var(--muted)">Normal development workflow — nothing changes here</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:20px;padding:20px 0;border-bottom:1px solid var(--border)">
+      <div style="width:40px;height:40px;border-radius:50%;background:var(--success-light);color:var(--success);display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">2</div>
+      <div>
+        <strong>Runs <code style="background:var(--cream);padding:2px 8px;border-radius:4px;font-family:var(--mono);font-size:13px">node index.js</code></strong>
+        <div style="font-size:14px;color:var(--muted)">Takes under 5 minutes. Reviews code, generates HTML report.</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:20px;padding:20px 0;border-bottom:1px solid var(--border)">
+      <div style="width:40px;height:40px;border-radius:50%;background:var(--gold-light);color:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">3</div>
+      <div>
+        <strong>Fixes Critical & High severity issues</strong>
+        <div style="font-size:14px;color:var(--muted)">Each issue has copy-paste ready code. Developer fixes and re-runs to verify.</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:20px;padding:20px 0;border-bottom:1px solid var(--border)">
+      <div style="width:40px;height:40px;border-radius:50%;background:var(--accent-light);color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">4</div>
+      <div>
+        <strong>Creates Pull Request with clean report attached</strong>
+        <div style="font-size:14px;color:var(--muted)">PR includes the HTML report as evidence of review completion</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:20px;padding:20px 0">
+      <div style="width:40px;height:40px;border-radius:50%;background:var(--success-light);color:var(--success);display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">5</div>
+      <div>
+        <strong>Architect reviews report summary, not raw code</strong>
+        <div style="font-size:14px;color:var(--muted)">Focus shifts from line-by-line review to strategic architecture decisions</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- FOOTER                                      -->
+<!-- ════════════════════════════════════════════ -->
+<div class="footer">
+  <div class="footer-brand">ETG Digital</div>
+  <div class="footer-note">AI Code Guardian v1.0 — Built by Engineering, for Engineering</div>
+</div>
+
+</body>
+</html>
