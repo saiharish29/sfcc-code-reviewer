@@ -1,0 +1,29 @@
+{
+  "name": "sfcc-code-reviewer",
+  "version": "1.0.0",
+  "description": "AI-Powered Code Review & Security Analysis CLI for SFCC/PWA/Node.js projects",
+  "main": "index.js",
+  "bin": {
+    "code-review": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "review": "node index.js"
+  },
+  "keywords": [
+    "code-review",
+    "security",
+    "sfcc",
+    "pwa",
+    "salesforce-commerce-cloud"
+  ],
+  "author": "ETG Digital",
+  "license": "MIT",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "glob": "^10.3.10",
+    "chalk": "^4.1.2",
+    "ora": "^5.4.1",
+    "inquirer": "^8.2.6"
+  }
+}

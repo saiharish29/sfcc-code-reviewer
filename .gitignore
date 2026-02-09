@@ -1,0 +1,4 @@
+node_modules/
+code-review-reports/
+.env
+*.log
